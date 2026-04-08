@@ -1,0 +1,1019 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$Capy - The Chill Memecoin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8B5E3C;
+            --secondary: #A67B5B;
+            --accent: #D2B48C;
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(15, 20, 50, 0.8);
+            --border: rgba(171, 122, 88, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --glow-green: 0 0 30px rgba(171, 122, 88, 0.6);
+            --glow-blue: 0 0 30px rgba(166, 123, 91, 0.6);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #0d1a2d 50%, #1a0d2d 100%);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            background-attachment: fixed;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 14, 39, 0.7);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--dark-bg);
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            top: 50%;
+            right: 5%;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(3rem, 12vw, 8rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glitch 0.3s ease;
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: none; }
+            50% { text-shadow: 2px 2px rgba(0, 255, 136, 0.5); }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'DM Sans', sans-serif;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--dark-bg);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: var(--glow-green);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(139, 94, 60, 0.1);
+            transform: translateY(-4px);
+            box-shadow: var(--glow-green);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .about-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 16px;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        .about-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+        }
+
+        .about-card:hover::before {
+            opacity: 1;
+        }
+
+        .about-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .about-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Contract Section */
+        .contract {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(0, 212, 255, 0.05));
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .contract-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contract-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contract-address-box {
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            backdrop-filter: blur(20px);
+        }
+
+        .contract-address-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--primary);
+            word-break: break-all;
+            flex: 1;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--dark-bg);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-green);
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(135deg, #8B5E3C, #A67B5B);
+        }
+
+        .copy-feedback {
+            color: #D2B48C;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            min-height: 20px;
+            opacity: 0;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .copy-feedback.show {
+            opacity: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Chart Section */
+        .chart {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .chart-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            animation: slideUp 0.6s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chart-container iframe {
+            width: 100%;
+            min-height: 500px;
+            border: none;
+        }
+
+        /* Memes Section */
+        .memes {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.03), rgba(0, 212, 255, 0.03));
+            border-top: 1px solid var(--border);
+        }
+
+        .memes-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            overflow: hidden;
+            animation: scrollLeft 30s linear infinite;
+        }
+
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .meme-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            min-width: 280px;
+            flex-shrink: 0;
+        }
+
+        .meme-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .meme-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--primary);
+        }
+
+        .meme-card:hover::before {
+            opacity: 1;
+        }
+
+        .meme-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .meme-image::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.2) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .meme-content {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .meme-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .meme-content p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Links Section */
+        .links {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .link-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        .link-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-8px);
+        }
+
+        .link-card i {
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .link-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .link-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .link-btn {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: var(--dark-bg);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .link-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            animation: fadeInScroll 0.8s ease forwards;
+        }
+
+        @keyframes fadeInScroll {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 80vh;
+                padding: 2rem 1rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .about, .contract, .chart, .memes, .links {
+                padding: 3rem 1rem;
+            }
+
+            .contract-address-box {
+                flex-direction: column;
+            }
+
+            .contract-address-text {
+                font-size: 0.75rem;
+            }
+
+            .copy-btn {
+                width: 100%;
+            }
+
+            .chart-container iframe {
+                min-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-logo">₿Capy</div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contract">Contract</a></li>
+            <li><a href="#chart">Chart</a></li>
+            <li><a href="#memes">Memes</a></li>
+            <li><a href="#links">Links</a></li>
+        </ul>
+        <button class="nav-cta" onclick="document.getElementById('chart').scrollIntoView({behavior: 'smooth'})">
+            <i class="fas fa-arrow-up"></i> Buy Now
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">$CAPY</h1>
+            <p class="hero-subtitle">
+                The Chill Memecoin 🦫<br>
+                <span style="font-size: 0.9em;">Where Relaxation Meets Crypto - Just like a capybara in a hot spring, we're here to vibe.</span>
+            </p>
+            <div class="hero-cta-group">
+                <a href="https://pump.fun/coin/HCCCp399kA7B9DggWRtUoyUgqqYgyjqf9AA4MmxUpump" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-shopping-cart"></i> Buy on Pump.fun
+                </a>
+                <button class="btn btn-secondary" onclick="document.getElementById('chart').scrollIntoView({behavior: 'smooth'})">
+                    <i class="fas fa-chart-line"></i> View Chart
+                </button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">$CAPY</div>
+                    <div class="stat-label">Ticker</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">Solana</div>
+                    <div class="stat-label">Blockchain</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Chill Vibes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2 class="section-title">Why $Capy?</h2>
+        <div class="about-grid">
+            <div class="about-card">
+                <div class="about-card-content">
+                    <div class="about-icon"><i class="fas fa-water"></i></div>
+                    <h3>The Capybara Energy</h3>
+                    <p>Capybaras are the internet's favorite chill animal. They vibe in hot springs, they're friends with everyone, they don't rush. That's the $Capy philosophy.</p>
+                </div>
+            </div>
+            <div class="about-card">
+                <div class="about-card-content">
+                    <div class="about-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>Community Driven</h3>
+                    <p>No VC backing, no pre-mine drama. Just real community members hodling and sharing the memecoin love. Built by the people, for the people.</p>
+                </div>
+            </div>
+            <div class="about-card">
+                <div class="about-card-content">
+                    <div class="about-icon"><i class="fas fa-coins"></i></div>
+                    <h3>Meme Backed Value</h3>
+                    <p>The strongest asset in crypto isn't code—it's culture. $Capy is backed by the raw memetic energy of the most relatable animal on the internet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contract Section -->
+    <section class="contract" id="contract">
+        <div class="contract-container">
+            <h2 class="section-title">Contract Address</h2>
+            <p class="contract-label">Copy and verify before buying</p>
+            <div class="contract-address-box">
+                <span class="contract-address-text">HCCCp399kA7B9DggWRtUoyUgqqYgyjqf9AA4MmxUpump</span>
+                <button class="copy-btn" onclick="copyToClipboard()"><i class="fas fa-copy"></i> Copy</button>
+            </div>
+            <div class="copy-feedback" id="copyFeedback">✓ Copied to clipboard!</div>
+        </div>
+    </section>
+
+    <!-- Chart Section -->
+    <section class="chart" id="chart">
+        <h2 class="section-title">Live Chart</h2>
+        <div class="chart-container">
+            <iframe src="https://dexscreener.com/solana/527cqkhjfttfiezfnewgismgzznqcqxbmvu8qraynqzs?embed=1" title="Dexscreener Chart"></iframe>
+        </div>
+    </section>
+
+    <!-- Memes Section -->
+    <section class="memes" id="memes">
+        <h2 class="section-title">Capy Memes</h2>
+        <div class="memes-grid">
+            <div class="meme-card">
+                <div class="meme-image">🦫</div>
+                <div class="meme-content">
+                    <h3>Maximum Chill</h3>
+                    <p>This is the way. No stress, no FUD, just vibes and relaxation mode activated.</p>
+                </div>
+            </div>
+            <div class="meme-card">
+                <div class="meme-image">🛁</div>
+                <div class="meme-content">
+                    <h3>Hot Spring Energy</h3>
+                    <p>Your portfolio in a warm bath of gains. Heated, steamy, and feeling good.</p>
+                </div>
+            </div>
+            <div class="meme-card">
+                <div class="meme-image">👨‍👩‍👧‍👦</div>
+                <div class="meme-content">
+                    <h3>Social Creatures</h3>
+                    <p>Capybaras hang with everyone. Friends with frogs, birds, and all meme animals.</p>
+                </div>
+            </div>
+            <div class="meme-card">
+                <div class="meme-image">📈</div>
+                <div class="meme-content">
+                    <h3>Organic Growth</h3>
+                    <p>Like a capybara growing naturally in the wild. No artificial pumps, just real adoption.</p>
+                </div>
+            </div>
+            <div class="meme-card">
+                <div class="meme-image">🌿</div>
+                <div class="meme-content">
+                    <h3>Environmental Friendly</h3>
+                    <p>Solana blockchain = low energy. Capybaras are natural environmentalists.</p>
+                </div>
+            </div>
+            <div class="meme-card">
+                <div class="meme-image">✨</div>
+                <div class="meme-content">
+                    <h3>Future is Chill</h3>
+                    <p>In a world full of chaos, be a capybara. Embrace the $Capy revolution.</p>
+                </div>
+            </div>
+            <div class="meme-card">
+                <div class="meme-image">🦫</div>
+                <div class="meme-content">
+                    <h3>Maximum Chill</h3>
+                    <p>This is the way. No stress, no FUD, just vibes and relaxation mode activated.</p>
+                </div>
+            </div>
+            <div class="meme-card">
+                <div class="meme-image">🛁</div>
+                <div class="meme-content">
+                    <h3>Hot Spring Energy</h3>
+                    <p>Your portfolio in a warm bath of gains. Heated, steamy, and feeling good.</p>
+                </div>
+            </div>
+            <div class="meme-card">
+                <div class="meme-image">👨‍👩‍👧‍👦</div>
+                <div class="meme-content">
+                    <h3>Social Creatures</h3>
+                    <p>Capybaras hang with everyone. Friends with frogs, birds, and all meme animals.</p>
+                </div>
+            </div>
+            <div class="meme-card">
+                <div class="meme-image">📈</div>
+                <div class="meme-content">
+                    <h3>Organic Growth</h3>
+                    <p>Like a capybara growing naturally in the wild. No artificial pumps, just real adoption.</p>
+                </div>
+            </div>
+            <div class="meme-card">
+                <div class="meme-image">🌿</div>
+                <div class="meme-content">
+                    <h3>Environmental Friendly</h3>
+                    <p>Solana blockchain = low energy. Capybaras are natural environmentalists.</p>
+                </div>
+            </div>
+            <div class="meme-card">
+                <div class="meme-image">✨</div>
+                <div class="meme-content">
+                    <h3>Future is Chill</h3>
+                    <p>In a world full of chaos, be a capybara. Embrace the $Capy revolution.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Links Section -->
+    <section class="links" id="links">
+        <h2 class="section-title">Community & Resources</h2>
+        <div class="links-grid">
+            <div class="link-card">
+                <i class="fab fa-twitter"></i>
+                <h3>X Community</h3>
+                <p>Join the Capy community on X. Share memes, ask questions, and vibe with fellow hodlers.</p>
+                <a href="https://twitter.com/i/communities/2017691306777317673" class="link-btn" target="_blank">Join Community</a>
+            </div>
+            <div class="link-card">
+                <i class="fab fa-dev"></i>
+                <h3>Dev Post</h3>
+                <p>Check out the official dev announcement and roadmap. Transparency is key.</p>
+                <a href="https://x.com/i/status/2041800877657166198" class="link-btn" target="_blank">Read Post</a>
+            </div>
+            <div class="link-card">
+                <i class="fas fa-magnifying-glass"></i>
+                <h3>Solscan</h3>
+                <p>Verify the contract on Solscan. Check transactions, holders, and contract details.</p>
+                <a href="https://solscan.io/token/HCCCp399kA7B9DggWRtUoyUgqqYgyjqf9AA4MmxUpump" class="link-btn" target="_blank">View on Solscan</a>
+            </div>
+            <div class="link-card">
+                <i class="fas fa-shopping-bag"></i>
+                <h3>Pump.fun</h3>
+                <p>Ready to buy? Head over to Pump.fun and grab your $CAPY tokens now.</p>
+                <a href="https://pump.fun/coin/HCCCp399kA7B9DggWRtUoyUgqqYgyjqf9AA4MmxUpump" class="link-btn" target="_blank">Buy Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 $Capy - The Chill Memecoin. Powered by Community & Vibes.</p>
+        <p style="font-size: 0.8rem; margin-top: 1rem;">⚠️ Not financial advice. Always DYOR (Do Your Own Research).</p>
+    </footer>
+
+    <script>
+        // Copy to clipboard functionality
+        function copyToClipboard() {
+            const contractAddress = 'HCCCp399kA7B9DggWRtUoyUgqqYgyjqf9AA4MmxUpump';
+            navigator.clipboard.writeText(contractAddress).then(() => {
+                const btn = event.target.closest('button');
+                const feedback = document.getElementById('copyFeedback');
+                
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                feedback.classList.add('show');
+                
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                    feedback.classList.remove('show');
+                }, 2000);
+            });
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.about-card, .meme-card, .link-card, .chart-container').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add scroll event for navbar appearance
+        let lastScrollY = 0;
+        window.addEventListener('scroll', () => {
+            lastScrollY = window.scrollY;
+        });
+    </script>
+</body>
+</html>
