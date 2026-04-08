@@ -48,12 +48,17 @@
             background: rgba(10, 14, 39, 0.7);
             border-bottom: 1px solid var(--border);
             padding: 1rem 2rem;
+        }
+
+        .nav-inner {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .nav-logo {
+        .nav-brand {
             font-family: 'Space Mono', monospace;
             font-size: 1.5rem;
             font-weight: 700;
@@ -61,12 +66,36 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-brand span {
+            color: var(--primary);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--primary);
         }
 
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
         .nav-links a {
@@ -96,34 +125,68 @@
             width: 100%;
         }
 
-        .nav-cta {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--dark-bg);
-            border: none;
-            padding: 0.6rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
+        .nav-actions {
+            display: flex;
+            align-items: center;
         }
 
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        .nav-actions .btn {
+            font-size: 0.9rem;
+            padding: 0.6rem 1.2rem;
         }
 
         @media (max-width: 768px) {
             nav {
-                flex-direction: column;
-                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-inner {
+                flex-wrap: wrap;
+            }
+
+            .nav-toggle {
+                display: flex;
+                order: 2;
             }
 
             .nav-links {
+                position: fixed;
+                top: 100%;
+                right: 0;
+                width: min(280px, 100%);
+                max-width: 280px;
+                height: calc(100vh - 76px);
+                padding: 1.5rem;
                 flex-direction: column;
-                gap: 0.5rem;
+                gap: 0;
+                background: rgba(11, 9, 7, 0.96);
+                backdrop-filter: blur(20px);
+                transform: translateX(108%);
+                transition: transform 0.32s ease, opacity 0.32s ease;
+                opacity: 0;
+                pointer-events: none;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .nav-links li {
                 width: 100%;
-                text-align: center;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 0.9rem 0;
+                font-size: 1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            }
+
+            .nav-actions {
+                display: none;
             }
         }
 
@@ -136,7 +199,7 @@
             padding: 2rem;
             position: relative;
             overflow: hidden;
-            margin-top: 60px;
+            margin-top: 70px;
         }
 
         .hero-bg {
@@ -306,7 +369,7 @@
         .about {
             padding: 5rem 2rem;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 100px auto 0;
         }
 
         .section-title {
@@ -390,9 +453,10 @@
         /* Contract Section */
         .contract {
             padding: 5rem 2rem;
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(0, 212, 255, 0.05));
+            background: linear-gradient(135deg, rgba(171, 122, 88, 0.05), rgba(166, 123, 91, 0.05));
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
+            margin: 100px auto 0;
         }
 
         .contract-container {
@@ -474,7 +538,7 @@
         .chart {
             padding: 5rem 2rem;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 100px auto 0;
         }
 
         .chart-container {
@@ -506,8 +570,9 @@
         /* Memes Section */
         .memes {
             padding: 5rem 2rem;
-            background: linear-gradient(135deg, rgba(255, 0, 255, 0.03), rgba(0, 212, 255, 0.03));
+            background: linear-gradient(135deg, rgba(214, 180, 140, 0.03), rgba(139, 94, 60, 0.03));
             border-top: 1px solid var(--border);
+            margin: 100px auto 0;
         }
 
         .memes-grid {
@@ -606,7 +671,7 @@
         .links {
             padding: 5rem 2rem;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 100px auto 0;
         }
 
         .links-grid {
@@ -698,6 +763,7 @@
             .hero {
                 min-height: 80vh;
                 padding: 2rem 1rem;
+                margin-top: 70px;
             }
 
             .hero-title {
@@ -736,24 +802,44 @@
             .chart-container iframe {
                 min-height: 400px;
             }
+
+            .memes-grid {
+                animation: none;
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav>
-        <div class="nav-logo">₿Capy</div>
-        <ul class="nav-links">
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contract">Contract</a></li>
-            <li><a href="#chart">Chart</a></li>
-            <li><a href="#memes">Memes</a></li>
-            <li><a href="#links">Links</a></li>
-        </ul>
-        <button class="nav-cta" onclick="document.getElementById('chart').scrollIntoView({behavior: 'smooth'})">
-            <i class="fas fa-arrow-up"></i> Buy Now
-        </button>
+        <div class="nav-inner">
+            <a class="nav-brand" href="#hero">
+                <span>$</span>
+                CAPY
+            </a>
+
+            <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contract">Contract</a></li>
+                <li><a href="#chart">Chart</a></li>
+                <li><a href="#memes">Memes</a></li>
+                <li><a href="#links">Links</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="https://pump.fun/coin/HCCCp399kA7B9DggWRtUoyUgqqYgyjqf9AA4MmxUpump" class="btn btn-primary" target="_blank" rel="noopener">
+                    Buy $CAPY
+                </a>
+            </div>
+        </div>
     </nav>
 
     <!-- Hero Section -->
@@ -967,11 +1053,42 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 $Capy - The Chill Memecoin. Powered by Community & Vibes.</p>
+        <p>&copy; 2026 $Capy - The Chill Memecoin. Powered by Community & Vibes.</p>
         <p style="font-size: 0.8rem; margin-top: 1rem;">⚠️ Not financial advice. Always DYOR (Do Your Own Research).</p>
     </footer>
 
     <script>
+        // Nav toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (navToggle && navLinks) {
+                navToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    navToggle.setAttribute('aria-expanded', navLinks.classList.contains('active'));
+                    
+                    // Update icon
+                    const icon = navToggle.querySelector('i');
+                    if (navLinks.classList.contains('active')) {
+                        icon.className = 'fas fa-times';
+                    } else {
+                        icon.className = 'fas fa-bars';
+                    }
+                });
+            }
+
+            // Close mobile menu when clicking a link
+            navLinks.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    navLinks.classList.remove('active');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    const icon = navToggle.querySelector('i');
+                    icon.className = 'fas fa-bars';
+                }
+            });
+        });
+
         // Copy to clipboard functionality
         function copyToClipboard() {
             const contractAddress = 'HCCCp399kA7B9DggWRtUoyUgqqYgyjqf9AA4MmxUpump';
